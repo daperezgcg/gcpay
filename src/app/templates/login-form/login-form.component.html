@@ -1,0 +1,50 @@
+<div>
+  <label
+    for="last_name"
+    class="text-sm md:text-xs font-bold text-right text-ghost-200 mt-3"
+    >Usuario</label
+  >
+  <input
+    type="text"
+    id="user"
+    class="bg-slate-900/[.6] border-2 py-3 mb-3 font-semibold border-slate-700 text-ghost-50 text-xs shadow-[inset_0px_6px_15px_4px_#00000035] focus:border-slate-300 focus:ring-slate-900 rounded-lg block w-full p-2.5 placeholder-ghost-200"
+    placeholder=""
+    required
+  />
+  <label
+    for="last_name"
+    class="text-sm md:text-xs font-bold text-right text-ghost-200 mb-2"
+    >Contraseña</label
+  >
+  <div class="relative">
+    <input
+      #passwordInput
+      type="password"
+      id="password"
+      class="bg-slate-900/[.6] border-2 py-3 font-semibold border-slate-700 text-ghost-50 text-xs shadow-[inset_0px_6px_15px_4px_#00000035] focus:border-slate-300 focus:ring-slate-900 rounded-lg block w-full p-2.5 placeholder-ghost-200"
+      placeholder=""
+      required
+    />
+    <i
+      #eyeIcon
+      class="fa-solid fa-eye absolute top-1/2 -translate-y-1/2 end-3 text-ghost-200 hover:text-gold-400 cursor-pointer"
+      (click)="passwordToggle(passwordInput, eyeIcon)"
+    ></i>
+  </div>
+
+  <h5
+    class="text-xs font-bold text-right text-ghost-200 hover:text-gold-400 transitions mt-3 cursor-pointer"
+  >
+    ¿Olvidaste tu contraseña?
+  </h5>
+
+  <button class="w-full mt-8 py-3 px-5 dark-button">Iniciar sesión</button>
+  <h3 class="text-xs font-bold text-center text-ghost-200 mt-3">
+    ¿No tienes cuenta?
+    <span class="text-ghost-100 hover:text-gold-400 transitions cursor-pointer"
+      >Registrate aquí</span
+    >
+  </h3>
+
+  <img class="mt-10 md:hidden" src="assets/img/payments.png" alt="" />
+</div>

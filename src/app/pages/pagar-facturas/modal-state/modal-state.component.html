@@ -1,0 +1,22 @@
+<div
+   id="state-modal"
+   tabindex="-1"
+   aria-hidden="true"
+   class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full"
+>
+   <div class="relative px-5 w-full max-w-2xl max-h-full">
+      <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+         <iframe class="mx-auto" [src]="configs[state].src"></iframe>
+         <h1 class="text-green-600 card-title text-2xl text-center mb-10">
+            {{ configs[state].title }}
+         </h1>
+         <div
+            class="w-full md:w-5/12 mx-auto animate__animated animate__fadeIn"
+         >
+            <div class="flex justify-center mt-10">
+               {{ configs[state].description }}
+            </div>
+         </div>
+      </div>
+   </div>
+</div>

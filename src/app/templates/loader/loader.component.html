@@ -1,0 +1,20 @@
+<div class="relative w-full h-full">
+   <div id="loader">
+      <div
+         id="shadow"
+         [ngClass]="{
+            'box-light': theme === 'light',
+            'box-dark': theme === 'dark',
+            'box-default': theme === '',
+         }"
+      ></div>
+      <div
+         id="box"
+         [ngClass]="{
+            'box-light': theme === 'light',
+            'box-dark': theme === 'dark',
+            'box-default': theme === '',
+         }"
+      ></div>
+   </div>
+</div>

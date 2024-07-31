@@ -5,6 +5,7 @@
   "compilerOptions": {
     "outDir": "./dist/out-tsc",
     "strict": true,
+    "types": ["node"],
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,
@@ -19,10 +20,18 @@
     "target": "ES2022",
     "module": "ES2022",
     "useDefineForClassFields": false,
-    "lib": [
-      "ES2022",
-      "dom"
-    ]
+    "lib": ["ES2022", "dom"],
+    "paths": {
+      "@pipes/*": ["./src/app/pipes/*"],
+      "@guards/*": ["./src/app/guards/*"],
+      "@services/*": ["./src/app/services/*"],
+      "@templates/*": ["./src/app/templates/*"],
+      "@utilities/*": ["./src/app/utilities/*"],
+      "@environments/*": ["./src/environments/*"],
+      "@directives/*": ["./src/app/directives/*"],
+      "@interfaces/*": ["./src/app/interfaces/*"],
+      "@interceptors/*": ["./src/app/interceptors/*"]
+    }
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

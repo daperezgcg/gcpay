@@ -1,1 +1,81 @@
-/* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+   .card {
+      @apply rounded-xl bg-ghost-100 border border-gray-200 p-3  md:p-4 xl:p-3 xl:py-6 2xl:p-6;
+   }
+   .select-card {
+      @apply rounded-xl ease-in duration-200 hover:bg-ghost-100 border border-gray-300  hover:drop-shadow-xl p-4 hover:-translate-y-1 cursor-pointer;
+   }
+   .card-title {
+      @apply text-lg font-bold text-slate-900;
+   }
+   .card-subtitle {
+      @apply text-sm font-semibold text-gray-700;
+   }
+   .text {
+      @apply text-[0.76rem] md:text-[0.81rem] font-medium text-gray-500;
+   }
+   .button {
+      @apply text-white bg-slate-700 hover:bg-slate-900 ease-in duration-200 focus:outline-2 focus:outline-slate-900 focus:outline-offset-4  rounded-lg text-xs font-semibold px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800;
+   }
+   .btn-light {
+      @apply text-slate-600 border-2 hover:border-ghost-200 hover:text-ghost-100 bg-gray-200;
+   }
+   .dark-button {
+      @apply text-slate-900 bg-ghost-100 hover:bg-transparent border-2 border-ghost-100 hover:text-ghost-100 ease-in duration-200 focus:outline-2 focus:outline-ghost-100 focus:outline-offset-4 font-semibold rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800;
+   }
+   .transitions {
+      @apply ease-in duration-200;
+   }
+   .dark-glass {
+      @apply bg-slate-900/[.35] backdrop-blur-lg border-2 border-slate-900/[0.3];
+   }
+   .input {
+      @apply bg-gray-50 border border-gray-300 text-gray-900 text-[0.81rem] font-semibold rounded-lg focus:ring-slate-200 focus:border-slate-200 block w-full p-2.5;
+   }
+   .input-sm {
+      @apply text-xs p-2 w-32;
+   }
+   .input-dark {
+      @apply bg-slate-900/[.6] border-2 py-3 font-semibold border-slate-700 text-ghost-50 text-xs shadow-[inset_0px_6px_15px_4px_#00000035] focus:border-slate-300 focus:ring-slate-900 rounded-lg block w-full p-2.5 placeholder-ghost-200;
+   }
+}
+
+#audio-bars {
+   margin: 0;
+   height: 80px;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   overflow: hidden;
+
+   .bar-a {
+      width: 4px;
+      border-radius: 10px;
+      margin: 0 2px;
+      background-color: #ffffff;
+      transition:
+         min-height 0.1s ease-in-out,
+         opacity 0.1s ease-in-out;
+   }
+}
+
+.swal2-popup {
+   font-size: 0.8rem;
+   color: white; /* tamaño de fuente personalizado */
+   background-color: #3c3c46 !important; /* color de fondo personalizado */
+   border-radius: 10px; /* bordes redondeados */
+}
+
+.swal2-progress-bar-fill,
+.swal2-progress-bar {
+   background-color: #4caf50 !important; /* color del relleno */
+}
+
+.small-decimal {
+   font-size: 80%;
+   opacity: 0.7;
+}
