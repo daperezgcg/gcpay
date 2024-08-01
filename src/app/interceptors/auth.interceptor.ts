@@ -1,4 +1,4 @@
-import { HttpInterceptorFn, HttpErrorResponse } from '@angular/common/http';
+import { HttpErrorResponse, HttpInterceptorFn } from '@angular/common/http';
 import { catchError } from 'rxjs';
 
 /*
@@ -18,7 +18,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
     catchError((err: HttpErrorResponse) => {
       if (err.status == 401) {
         localStorage.clear();
-        window.location.assign('https://www.garantiascomunitarias.com');
+        // window.location.assign('https://www.garantiascomunitarias.com');
       }
       throw Error;
     })

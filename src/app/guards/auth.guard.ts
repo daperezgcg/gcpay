@@ -1,6 +1,6 @@
 import { inject } from '@angular/core';
-import { getDateShort } from '@utilities/date.util';
 import { CanActivateFn, Router } from '@angular/router';
+import { getDateShort } from '@utilities/date.util';
 
 export const authGuard: CanActivateFn = (route, state) => {
   const router = inject(Router);

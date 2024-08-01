@@ -1,12 +1,11 @@
 import { Routes } from '@angular/router';
-import { authGuard } from '@guards/auth.guard';
 import { SidebarComponent } from './pages/sidebar/sidebar.component';
 
 export const routes: Routes = [
   {
     path: '',
     component: SidebarComponent,
-    canActivate: [authGuard],
+    // canActivate: [authGuard],
     children: [
       {
         path: '',

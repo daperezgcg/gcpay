@@ -1,14 +1,14 @@
 <app-user-widget></app-user-widget>
 
 <div class="pt-2 grid grid-cols-12 gap-4 animate__animated animate__fadeIn">
-   <div class="col-span-12 md:col-span-12 lg:col-span-8 h-[85vh]">
-      <div class="col-span-12 card h-full">
-         <div class="md:flex md:justify-between items-center mb-3">
-            <div>
-               <h1 class="card-title">Facturas</h1>
-            </div>
-            <div class="md:flex gap-3">
-               <!-- <form class="max-w-md mb-3 md:mb-0">
+  <div class="col-span-12 md:col-span-12 lg:col-span-8 h-[85vh]">
+    <div class="col-span-12 card h-full">
+      <div class="md:flex md:justify-between items-center mb-3">
+        <div>
+          <h1 class="card-title">Facturas</h1>
+        </div>
+        <div class="md:flex gap-3">
+          <!-- <form class="max-w-md mb-3 md:mb-0">
                   <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only">Search</label>
                   <div class="relative">
                      <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
@@ -21,7 +21,7 @@
                      <input type="search" class="ps-10 p-2 text-xs input" placeholder="Buscar" required />
                   </div>
                </form> -->
-               <!-- <div class="relative max-w-sm">
+          <!-- <div class="relative max-w-sm">
                   <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
                      <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
                         xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
@@ -32,357 +32,244 @@
                   <input appCalendar class="input text-xs ps-8 h-[34px]" type="text"
                      placeholder="Selecciona una fecha" />
                </div> -->
-               <form class="mb-3 md:mb-0">
-                  <select
-                     (change)="sortBills($event)"
-                     class="input input-lg text-xs"
-                  >
-                     <option selected>Ordenar por ...</option>
-                     <!-- <option value="1">Vigentes</option>
+          <form class="mb-3 md:mb-0">
+            <select (change)="sortBills($event)" class="input input-lg text-xs">
+              <option selected>Ordenar por ...</option>
+              <!-- <option value="1">Vigentes</option>
                      <option value="2">Vencidas</option> -->
-                     <option value="3">Fecha ascendente</option>
-                     <option value="4">Fecha descendente</option>
-                  </select>
-               </form>
+              <option value="3">Fecha ascendente</option>
+              <option value="4">Fecha descendente</option>
+            </select>
+          </form>
 
-               <div class="inline-flex rounded-md shadow-sm" role="group">
-                  <button
-                     type="button"
-                     (click)="sortByStatus(bills)"
-                     class="px-4 text-xs font-bold text-green-500 bg-ghost-100 border border-gray-200 rounded-s-lg hover:bg-green-500/10 focus:z-10 focus:bg-green-500/50 focus:text-ghost-100 transitions"
-                  >
-                     Vigentes
-                  </button>
-                  <button
-                     type="button"
-                     (click)="sortByStatus(bills).reverse()"
-                     class="px-4 text-xs font-bold text-red-500 bg-ghost-100 border border-gray-200 rounded-e-lg hover:bg--500/10 focus:z-10 focus:bg-red-500/50 focus:text-ghost-100 transitions"
-                  >
-                     Vencidas
-                  </button>
-               </div>
-            </div>
-         </div>
-         <div
-            class="relative overflow-x-auto shadow-md sm:rounded-lg h-[93%] overflow-y-auto"
-         >
-            @if (!isLoading) {
-               @if (showBills.length === 0) {
-                  <div
-                     class="text-center py-8 h-full flex justify-center flex-col"
-                  >
-                     <i
-                        class="fa-regular fa-folder-open text-6xl mb-6 text-ghost-200"
-                     ></i>
-                     <p class="text text-sm font-semibold">
-                        No tienes facturas pendientes
-                     </p>
-                  </div>
-               } @else {
-                  <table
-                     class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
-                  >
-                     <thead
-                        class="text-xs text-gray-700 uppercase bg-ghost-50 dark:bg-gray-700 dark:text-gray-400"
-                     >
-                        <tr>
-                           <th scope="col" class="px-2 py-3">Factura</th>
-                           <th scope="col" class="px-2 py-3">Vigencia</th>
-                           <th scope=" col" class="px-2 py-3">Producto</th>
-                           <th scope="col" class="px-2 py-3">Valor</th>
-                           <th scope="col" class="px-2 py-3">Estado</th>
-                           <th scope="col" class="px-2 py-3"></th>
-                        </tr>
-                     </thead>
-                     <tbody>
-                        @for (bill of showBills; track $index) {
-                           <tr class="bg-white border-b hover:bg-gray-50">
-                              <th
-                                 scope="row"
-                                 class="px-2 py-4 font-medium text-gray-900 whitespace-nowrap"
-                              >
-                                 <div class="flex items-center">
-                                    <input
-                                       (click)="
+          <div class="inline-flex rounded-md shadow-sm" role="group">
+            <button type="button" (click)="sortByStatus(bills)"
+              class="px-4 text-xs font-bold text-green-500 bg-ghost-100 border border-gray-200 rounded-s-lg hover:bg-green-500/10 focus:z-10 focus:bg-green-500/50 focus:text-ghost-100 transitions">
+              Vigentes
+            </button>
+            <button type="button" (click)="sortByStatus(bills).reverse()"
+              class="px-4 text-xs font-bold text-red-500 bg-ghost-100 border border-gray-200 rounded-e-lg hover:bg--500/10 focus:z-10 focus:bg-red-500/50 focus:text-ghost-100 transitions">
+              Vencidas
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="relative overflow-x-auto shadow-md sm:rounded-lg h-[93%] overflow-y-auto">
+        @if (!isLoading) {
+        @if (showBills.length === 0) {
+        <div class="text-center py-8 h-full flex justify-center flex-col">
+          <i class="fa-regular fa-folder-open text-6xl mb-6 text-ghost-200"></i>
+          <p class="text text-sm font-semibold">
+            No tienes facturas pendientes
+          </p>
+        </div>
+        } @else {
+        <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+          <thead class="text-xs text-gray-700 uppercase bg-ghost-50 dark:bg-gray-700 dark:text-gray-400">
+            <tr>
+              <th scope="col" class="px-2 py-3">Factura</th>
+              <th scope="col" class="px-2 py-3">Vigencia</th>
+              <th scope=" col" class="px-2 py-3">Producto</th>
+              <th scope="col" class="px-2 py-3">Valor</th>
+              <th scope="col" class="px-2 py-3">Estado</th>
+              <th scope="col" class="px-2 py-3"></th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (bill of showBills; track $index) {
+            <tr class="bg-white border-b hover:bg-gray-50">
+              <th scope="row" class="px-2 py-4 font-medium text-gray-900 whitespace-nowrap">
+                <div class="flex items-center">
+                  <input (click)="
                                           addOrDeleteToArray(
                                              bill,
                                              'bill',
                                              $event
                                           )
-                                       "
-                                       id="bill-checkbox-{{ bill.nro_factura }}"
-                                       type="checkbox"
-                                       value=""
-                                       [checked]="busca(bill)"
-                                       name="bordered-checkbox"
-                                       class="bill-input w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                                    />
-                                    <label
-                                       for="bill-checkbox-{{
+                                       " id="bill-checkbox-{{ bill.nro_factura }}" type="checkbox" value=""
+                    [checked]="busca(bill)" name="bordered-checkbox"
+                    class="bill-input w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
+                  <label for="bill-checkbox-{{
                                           bill.nro_factura
                                        }}"
-                                       class="w-full ms-2 text-xs font-bold text-gray-900 font-number"
-                                       >{{ bill.nro_factura }}</label
-                                    >
-                                 </div>
-                              </th>
-                              <td class="px-2 py-4 font-number">
-                                 <label
-                                    for="bill-checkbox-{{ bill.nro_factura }}"
-                                    >{{ bill.fecha_vencimiento | date }}</label
-                                 >
-                              </td>
-                              <td class="px-2 py-4">
-                                 <label
-                                    for="bill-checkbox-{{ bill.nro_factura }}"
-                                 >
-                                    {{ bill.concepto_facturacion }}</label
-                                 >
-                              </td>
-                              <td class="px-2 py-4 font-number font-bold">
-                                 <label
-                                    for="bill-checkbox-{{ bill.nro_factura }}"
-                                    [innerHTML]="
+                    class="w-full ms-2 text-xs font-bold text-gray-900 font-number">{{ bill.nro_factura }}</label>
+                </div>
+              </th>
+              <td class="px-2 py-4 font-number">
+                <label for="bill-checkbox-{{ bill.nro_factura }}">{{ bill.fecha_vencimiento | date }}</label>
+              </td>
+              <td class="px-2 py-4">
+                <label for="bill-checkbox-{{ bill.nro_factura }}">
+                  {{ bill.concepto_facturacion }}</label>
+              </td>
+              <td class="px-2 py-4 font-number font-bold">
+                <label for="bill-checkbox-{{ bill.nro_factura }}" [innerHTML]="
                                        bill.valor_factura | formatNumber
-                                    "
-                                 >
-                                 </label>
-                              </td>
-                              <td class="px-2 py-4">
-                                 @if (bill.estado) {
-                                    <label
-                                       href="#"
-                                       for="bill-checkbox-{{
+                                    ">
+                </label>
+              </td>
+              <td class="px-2 py-4">
+                @if (bill.estado) {
+                <label href="#" for="bill-checkbox-{{
                                           bill.nro_factura
                                        }}"
-                                       class="font-semibold bg-green-500/25 text-green-500 py-1 px-3 rounded-full text-xs"
-                                       >Vigente</label
-                                    >
-                                 } @else {
-                                    <label
-                                       href="#"
-                                       for="bill-checkbox-{{
+                  class="font-semibold bg-green-500/25 text-green-500 py-1 px-3 rounded-full text-xs">Vigente</label>
+                } @else {
+                <label href="#" for="bill-checkbox-{{
                                           bill.nro_factura
                                        }}"
-                                       class="font-semibold bg-red-500/25 text-red-500 py-1 px-3 rounded-full text-xs"
-                                       >Vencida</label
-                                    >
-                                 }
-                              </td>
-                              <td class="px-2 py-4">
-                                 <a
-                                    data-modal-target="default-modal"
-                                    data-modal-toggle="default-modal"
-                                    (click)="modalTax = bill"
-                                    class="text-slate-100 text-[0.68rem] font-bold py-1 px-3 border border-slate-50 rounded-lg hover:bg-slate-900 hover:text-ghost-100 transitions group cursor-pointer"
-                                 >
-                                    <i class="fa-solid fa-money-bills me-2"></i>
-                                    Impuestos
-                                 </a>
-                              </td>
-                           </tr>
-                        }
-                     </tbody>
-                  </table>
-               }
-            } @else {
-               <app-loader theme="dark"></app-loader>
+                  class="font-semibold bg-red-500/25 text-red-500 py-1 px-3 rounded-full text-xs">Vencida</label>
+                }
+              </td>
+              <td class="px-2 py-4">
+                <a data-modal-target="default-modal" data-modal-toggle="default-modal" (click)="modalTax = bill"
+                  class="text-slate-100 text-[0.68rem] font-bold py-1 px-3 border border-slate-50 rounded-lg hover:bg-slate-900 hover:text-ghost-100 transitions group cursor-pointer">
+                  <i class="fa-solid fa-money-bills me-2"></i>
+                  Impuestos
+                </a>
+              </td>
+            </tr>
             }
-         </div>
+          </tbody>
+        </table>
+        }
+        } @else {
+        <app-loader theme="dark"></app-loader>
+        }
       </div>
-   </div>
+    </div>
+  </div>
 
-   <div
-      class="col-span-12 md:col-span-12 lg:col-span-4 card bg-slate-900 flex flex-col justify-between relative"
-   >
-      <div class="z-10">
-         <h1 class="card-title text-ghost-100 text-sm">Aplicar nota crédito</h1>
-         <p class="text pb-3">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-         </p>
+  <div class="col-span-12 md:col-span-12 lg:col-span-4 card bg-slate-900 flex flex-col justify-between relative">
+    <div class="z-10">
+      <h1 class="card-title text-ghost-100 text-sm">Aplicar nota crédito</h1>
+      <p class="text pb-3">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+      </p>
 
-         @if (!isLoading) {
-            @if (discounts.length === 0) {
-               <div
-                  class="text-center py-8 h-full flex justify-center flex-col"
-               >
-                  <i class="fa-solid fa-tag text-4xl mb-6 text-ghost-200"></i>
-                  <p class="text text-sm font-semibold">
-                     No tienes notas crédito disponibles.
-                  </p>
-               </div>
-            } @else {
-               <ul class="mb-5">
-                  @for (discount of discounts; track $index) {
-                     <li
-                        class="px-3 border-b border-slate-800 py-3 hover:bg-slate-800 transitions flex items-between items-center"
-                     >
-                        <input
-                           #discountInput
-                           (click)="
+      @if (!isLoading) {
+      @if (discounts.length === 0) {
+      <div class="text-center py-8 h-full flex justify-center flex-col">
+        <i class="fa-solid fa-tag text-4xl mb-6 text-ghost-200"></i>
+        <p class="text text-sm font-semibold">
+          No tienes notas crédito disponibles.
+        </p>
+      </div>
+      } @else {
+      <ul class="mb-5">
+        @for (discount of discounts; track $index) {
+        <li class="px-3 border-b border-slate-800 py-3 hover:bg-slate-800 transitions flex items-between items-center">
+          <input #discountInput (click)="
                               addOrDeleteToArray(discount, 'discount', $event)
-                           "
-                           id="nc-checkbox-{{ discount.nro_factura }}"
-                           type="checkbox"
-                           name="bordered-checkbox"
-                           class="discountInput w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                        />
-                        <label
-                           for="nc-checkbox-{{ discount.nro_factura }}"
-                           class="w-full ms-2 text-xs font-semibold text-ghost-200 font-number"
-                           >{{ discount.nro_factura }}</label
-                        >
+                           " id="nc-checkbox-{{ discount.nro_factura }}" type="checkbox" name="bordered-checkbox"
+            class="discountInput w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
+          <label for="nc-checkbox-{{ discount.nro_factura }}"
+            class="w-full ms-2 text-xs font-semibold text-ghost-200 font-number">{{ discount.nro_factura }}</label>
 
-                        <label
-                           for="nc-checkbox-{{ discount.nro_factura }}"
-                           class="font-semibold text-ghost-100 font-number"
-                           [innerHTML]="discount.valor_factura | formatNumber"
-                        ></label>
-                     </li>
-                  }
-               </ul>
-            }
-         } @else {
-            <app-loader theme="light"></app-loader>
-         }
+          <label for="nc-checkbox-{{ discount.nro_factura }}" class="font-semibold text-ghost-100 font-number"
+            [innerHTML]="discount.valor_factura | formatNumber"></label>
+        </li>
+        }
+      </ul>
+      }
+      } @else {
+      <app-loader theme="light"></app-loader>
+      }
+    </div>
+    <div>
+      <div class="flex justify-between">
+        <h1 class="card-title text-ghost-200 text-xs">Sub Total</h1>
+        <span class="font-number text-lg text-ghost-100" [innerHTML]="totalValues.subTotal | formatNumber"></span>
       </div>
-      <div>
-         <div class="flex justify-between">
-            <h1 class="card-title text-ghost-200 text-xs">Sub Total</h1>
-            <span
-               class="font-number text-lg text-ghost-100"
-               [innerHTML]="totalValues.subTotal | formatNumber"
-            ></span>
-         </div>
 
-         <div class="flex justify-between">
-            <h1 class="card-title text-ghost-200 text-right text-xs mb-2">
-               <i
-                  class="fa-solid fa-plus text-ghost-100 bg-slate-700 p-1 rounded-full me-2"
-               ></i>
-               Impuestos
-            </h1>
-            <span
-               class="font-number text-lg text-ghost-100"
-               data-popover-target="popover-default"
-               ><i class="fa-solid fa-circle-info me-2"></i
-               ><span
-                  [innerHTML]="
+      <div class="flex justify-between">
+        <h1 class="card-title text-ghost-200 text-right text-xs mb-2">
+          <i class="fa-solid fa-plus text-ghost-100 bg-slate-700 p-1 rounded-full me-2"></i>
+          Impuestos
+        </h1>
+        <span class="font-number text-lg text-ghost-100" data-popover-target="popover-default"><i
+            class="fa-solid fa-circle-info me-2"></i><span [innerHTML]="
                      totalValues.iva +
                         totalValues.reteIva +
                         totalValues.reteIca +
                         totalValues.reteFuente | formatNumber
-                  "
-               >
-               </span>
-            </span>
-         </div>
-
-         <div
-            data-popover
-            id="popover-default"
-            role="tooltip"
-            class="absolute z-10 invisible inline-block w-64 text-sm text-gray-500 transition-opacity duration-300 bg-slate-800 border border-slate-600 rounded-lg shadow-sm opacity-0 dark:text-gray-400 dark:border-gray-600 dark:bg-gray-800"
-         >
-            <div
-               class="px-3 py-2 bg-slate-700 border-b border-slate-600 rounded-t-lg"
-            >
-               <h3 class="font-semibold text-ghost-100">Impuestos</h3>
-            </div>
-            <div class="px-3 py-4">
-               @if (totalValues.subTotal > 0) {
-                  @if (totalValues.iva) {
-                     <h6 class="font-semibold text-xs text-ghost-100">
-                        IVA:
-                        <span
-                           [innerHTML]="totalValues.iva | formatNumber"
-                        ></span>
-                     </h6>
-                  }
-
-                  @if (totalValues.reteIva) {
-                     <h6 class="font-semibold text-xs text-ghost-100">
-                        ReteIVA:
-                        <span
-                           [innerHTML]="totalValues.reteIva | formatNumber"
-                        ></span>
-                     </h6>
-                  }
-
-                  @if (totalValues.reteIca) {
-                     <h6 class="font-semibold text-xs text-ghost-100">
-                        ReteIVA:
-                        <span
-                           [innerHTML]="totalValues.reteIca | formatNumber"
-                        ></span>
-                     </h6>
-                  }
-
-                  @if (totalValues.reteFuente) {
-                     <h6 class="font-semibold text-xs text-ghost-100">
-                        ReteIVA:
-                        <span
-                           [innerHTML]="totalValues.reteFuente | formatNumber"
-                        ></span>
-                     </h6>
-                  }
-               } @else {
-                  <small class="text text-xs text-semibold text-ghost-200"
-                     >Por favor, selecciona las facturas a pagar para ver la
-                     inforamción de los impuestos relacionados</small
-                  >
-               }
-            </div>
-            <div data-popper-arrow></div>
-         </div>
-
-         <div class="flex justify-between">
-            <h1 class="card-title text-ghost-200 text-right text-xs mb-2">
-               <i
-                  class="fa-solid fa-minus text-xs text-ghost-100 bg-slate-700 p-1 rounded-full me-2"
-               ></i>
-               Deducciones nota crédito
-            </h1>
-            <span
-               class="font-number text-lg text-ghost-100"
-               [innerHTML]="totalValues.deduccionesNotaCredito | formatNumber"
-            >
-            </span>
-         </div>
-
-         <div class="relative">
-            <h1 class="text-sm font-semibold text-gold-400 mb-2 mt-8">
-               Total a pagar
-            </h1>
-            <h1
-               class="card-title text-ghost-100 text-2xl md:text-5xl xl:text-3xl 2xl:text-[2rem] font-number font-bold"
-               [innerHTML]="totalValues.total | formatNumber"
-            ></h1>
-
-            <img
-               class="absolute end-0 bottom-1"
-               src="assets/img/coin.png"
-               alt=""
-            />
-         </div>
-         <button (click)="payBillsModal()" class="dark-button w-full py-4 mt-4">
-            Pagar Facturas
-         </button>
+                  ">
+          </span>
+        </span>
       </div>
-      <img
-         src="assets/img/waves-bck.png"
-         class="absolute w-full right-0 top-0 rotate-180 z-0"
-         alt=""
-      />
-   </div>
+
+      <div data-popover id="popover-default" role="tooltip"
+        class="absolute z-10 invisible inline-block w-64 text-sm text-gray-500 transition-opacity duration-300 bg-slate-800 border border-slate-600 rounded-lg shadow-sm opacity-0 dark:text-gray-400 dark:border-gray-600 dark:bg-gray-800">
+        <div class="px-3 py-2 bg-slate-700 border-b border-slate-600 rounded-t-lg">
+          <h3 class="font-semibold text-ghost-100">Impuestos</h3>
+        </div>
+        <div class="px-3 py-4">
+          @if (totalValues.subTotal > 0) {
+          @if (totalValues.iva) {
+          <h6 class="font-semibold text-xs text-ghost-100">
+            IVA:
+            <span [innerHTML]="totalValues.iva | formatNumber"></span>
+          </h6>
+          }
+
+          @if (totalValues.reteIva) {
+          <h6 class="font-semibold text-xs text-ghost-100">
+            ReteIVA:
+            <span [innerHTML]="totalValues.reteIva | formatNumber"></span>
+          </h6>
+          }
+
+          @if (totalValues.reteIca) {
+          <h6 class="font-semibold text-xs text-ghost-100">
+            ReteIVA:
+            <span [innerHTML]="totalValues.reteIca | formatNumber"></span>
+          </h6>
+          }
+
+          @if (totalValues.reteFuente) {
+          <h6 class="font-semibold text-xs text-ghost-100">
+            ReteIVA:
+            <span [innerHTML]="totalValues.reteFuente | formatNumber"></span>
+          </h6>
+          }
+          } @else {
+          <small class="text text-xs text-semibold text-ghost-200">Por favor, selecciona las facturas a pagar para ver
+            la
+            inforamción de los impuestos relacionados</small>
+          }
+        </div>
+        <div data-popper-arrow></div>
+      </div>
+
+      <div class="flex justify-between">
+        <h1 class="card-title text-ghost-200 text-right text-xs mb-2">
+          <i class="fa-solid fa-minus text-xs text-ghost-100 bg-slate-700 p-1 rounded-full me-2"></i>
+          Deducciones nota crédito
+        </h1>
+        <span class="font-number text-lg text-ghost-100"
+          [innerHTML]="totalValues.deduccionesNotaCredito | formatNumber">
+        </span>
+      </div>
+
+      <div class="relative">
+        <h1 class="text-sm font-semibold text-gold-400 mb-2 mt-8">
+          Total a pagar
+        </h1>
+        <h1 class="card-title text-ghost-100 text-2xl md:text-5xl xl:text-3xl 2xl:text-[2rem] font-number font-bold"
+          [innerHTML]="totalValues.total | formatNumber"></h1>
+
+        <img class="absolute end-0 bottom-1" src="assets/img/coin.png" alt="" />
+      </div>
+      <button (click)="payBillsModal()" class="dark-button w-full py-4 mt-4">
+        Pagar Facturas
+      </button>
+    </div>
+    <img src="assets/img/waves-bck.png" class="absolute w-full right-0 top-0 rotate-180 z-0" alt="" />
+  </div>
 </div>
 
-<app-modal-pay
-   (emitFn)="awaitTransaction($event)"
-   [bills]="billsSelected"
-   [discounts]="discountsSelected"
-   [total]="totalValues.total"
-/>
+<app-modal-pay (emitFn)="awaitTransaction($event)" [bills]="billsSelected" [discounts]="discountsSelected"
+  [total]="totalValues.total" />
 <app-modal-loading />
 <app-modal-state [state]="stateTransaction" />
 <app-modal-impuesto [bill]="modalTax" />
