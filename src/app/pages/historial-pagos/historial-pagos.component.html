@@ -7,19 +7,7 @@
         <h1 class="card-title">Historial de pagos</h1>
       </div>
       <div class="md:flex gap-3">
-        <form class="max-w-md mb-3 md:mb-0">
-          <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only">Search</label>
-          <div class="relative">
-            <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-              <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                  d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
-              </svg>
-            </div>
-            <input type="search" id="default-search" class="ps-10 text-xs input" placeholder="Buscar" required />
-          </div>
-        </form>
+        <app-search-bar></app-search-bar>
 
         <div class="relative max-w-sm mb-3 md:mb-0">
           <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
@@ -82,17 +70,18 @@
             </td>
 
             <td class="px-2 py-4">
-              <span href="#" class="font-semibold py-1 px-3 rounded-full text-xs"
+              <div href="#" class="font-semibold py-1 px-3 rounded-full text-xs text-center sm:block md:inline"
                 [ngClass]="classStatus[payment.estado]">
-                {{ payment.estado }}</span>
+                {{ payment.estado }}
+              </div>
             </td>
 
             <td class="px-2 py-4">
-              <a href="assets/ejemplo-factura.pdf" target="_blank"
-                class="text-slate-100 text-xs font-bold py-2 px-5 border border-slate-50 rounded-lg hover:bg-slate-900 hover:text-ghost-100 transitions group cursor-pointer">
+              <button (click)="goToDetails(payment.tr_wompi)"
+                class="text-slate-100 text-xs font-bold py-0 px-5 border border-slate-50 rounded-lg hover:bg-slate-900 hover:text-ghost-100 transitions group cursor-pointer">
                 <i class="fa-solid fa-file-arrow-down me-2 text-base"></i>
                 Comprobante
-              </a>
+              </button>
             </td>
           </tr>
           }
@@ -100,8 +89,12 @@
       </table>
       }
       } @placeholder (minimum 2000ms) {
-      <app-loader theme="light"></app-loader>
+      <div class="h-64">
+        <app-loader theme="dark"></app-loader>
+      </div>
       }
+
+
     </div>
   </div>
 </div>

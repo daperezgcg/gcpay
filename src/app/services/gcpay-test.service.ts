@@ -1,15 +1,33 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { environment } from '@environments/environment';
-import { IDataPay, IWompi } from '@interfaces/pagar-facturas.interface';
+import {
+  IBill,
+  IDataPay,
+  ITotals,
+  IWompi,
+} from '@interfaces/pagar-facturas.interface';
 
 @Injectable({
   providedIn: 'root',
 })
-export class GcPayService {
+export class GcPayServiceTest {
   private readonly httpClient: HttpClient;
   private readonly urlApi: string;
   public isPaying: boolean = false;
+
+  public billsSelected: IBill[] = [];
+  public discountsSelected: IBill[] = [];
+
+  public totalValues: ITotals = {
+    iva: 0,
+    total: 0,
+    reteIca: 0,
+    reteIva: 0,
+    subTotal: 0,
+    reteFuente: 0,
+    deduccionesNotaCredito: 0,
+  };
 
   constructor() {
     this.httpClient = inject(HttpClient);
@@ -34,7 +52,11 @@ export class GcPayService {
     return this.httpClient.post<IDataPay>(this.urlApi, formData);
   };
 
-  public payBills = (monto: number, facturas: string[]) => {
+  public payBills = (
+    monto: number,
+    facturas: string[],
+    redirectUrl: string
+  ) => {
     const formData = new FormData();
     formData.append('monto', monto + '');
     formData.append('funcion', 'enlace');
@@ -43,6 +65,7 @@ export class GcPayService {
     facturas.forEach((factura, index) => {
       formData.append(`facturas[${index}]`, factura);
     });
+    console.log(monto, facturas, redirectUrl);
 
     return this.httpClient.post<IWompi>(this.urlApi, formData);
   };
@@ -62,6 +85,15 @@ export class GcPayService {
     const formData = new FormData();
     formData.append('test', '1');
     formData.append('funcion', 'historial');
+
+    return this.httpClient.post<any>(this.urlApi, formData);
+  }
+
+  public getReceiptBill(id: string) {
+    console.log(id);
+    const formData = new FormData();
+    formData.append('funcion', 'buscar_transaccion');
+    formData.append('id', id);
 
     return this.httpClient.post<any>(this.urlApi, formData);
   }

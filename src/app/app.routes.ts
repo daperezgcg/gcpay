@@ -13,6 +13,13 @@ export const routes: Routes = [
         pathMatch: 'full',
       },
       {
+        path: 'no-encontrado',
+        loadComponent: () =>
+          import('./pages/no-encontrado/no-encontrado.component').then(
+            (m) => m.NoEncontradoComponent
+          ),
+      },
+      {
         path: 'pagar-facturas',
         loadComponent: () =>
           import('./pages/pagar-facturas/pago-de-facturas.component').then(
@@ -26,6 +33,20 @@ export const routes: Routes = [
             (m) => m.HistorialPagosComponent
           ),
       },
+      {
+        path: 'comprobante',
+        loadComponent: () =>
+          import('./pages/comprobante/comprobante.component').then(
+            (m) => m.comprobanteComponent
+          ),
+      },
+      {
+        path: 'pagar-prueba',
+        loadComponent: () =>
+          import(
+            './pages/pagar-facturas-test/pagar-facturas-test.component'
+          ).then((m) => m.PagarFacturasTestComponent),
+      },
     ],
   },
   {
@@ -35,6 +56,6 @@ export const routes: Routes = [
   },
   {
     path: '**',
-    redirectTo: '',
+    redirectTo: 'no-encontrado',
   },
 ];

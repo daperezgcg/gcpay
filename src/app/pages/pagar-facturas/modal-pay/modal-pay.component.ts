@@ -1,9 +1,17 @@
-import { GcPayService } from '@services/gcpay.service';
-import { toastAlert } from '@utilities/toastAlert.utils';
-import { FormatNumberPipe } from '@pipes/format-number.pipe';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  inject,
+} from '@angular/core';
 import { IBill } from '@interfaces/pagar-facturas.interface';
+import { FormatNumberPipe } from '@pipes/format-number.pipe';
+import { GcPayService } from '@services/gcpay.service';
 import { flowbiteUtilities } from '@utilities/flowbite.utils';
-import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
+import { toastAlert } from '@utilities/toastAlert.utils';
+import { initFlowbite } from 'flowbite';
 @Component({
   selector: 'app-modal-pay',
   standalone: true,
@@ -11,7 +19,10 @@ import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
   templateUrl: './modal-pay.component.html',
   styleUrl: './modal-pay.component.scss',
 })
-export class ModalPayComponent {
+export class ModalPayComponent implements OnInit {
+  ngOnInit(): void {
+    initFlowbite();
+  }
   @Input()
   public bills: IBill[] = [];
   @Input()
@@ -33,6 +44,8 @@ export class ModalPayComponent {
 
       this.gcPayService.payBills(this.total, bills).subscribe((data) => {
         window.open(data.enlace);
+        // window.location.href = data.enlace;
+
         this.emitFn.emit(data.id);
       });
 

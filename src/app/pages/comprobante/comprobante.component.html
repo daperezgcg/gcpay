@@ -1,0 +1,120 @@
+@if(isLoading){
+<div class="h-screen justify-center">
+  <app-loader theme="dark"></app-loader>
+  <h1>Cargando</h1>
+</div>
+}
+
+<div class="w-full md:w-5/12 mx-auto animate__animated animate__fadeIn" #content>
+
+
+  @if(!isLoading && !hasError){
+
+  <div id="pdfContent">
+    <div class="card">
+
+
+      @switch (receipt.estado) {
+      @case ('En espera') {
+      <img src="assets/looties/waiting.gif" class="mb-4 mx-auto w-20 h-20" alt="">
+
+      <h1 class="text-slate-900 card-title text-2xl text-center mb-10">{{receipt.estado}}</h1>
+      }
+      @case ('Error') {
+      <img src="assets/looties/advertencia.gif" class="mb-4 mx-auto w-20 h-20" alt="">
+
+      <h1 class="text-red-600 card-title text-2xl text-center mb-10">{{receipt.estado}}</h1>
+      }
+      @case ('Exito') {
+      <img src="assets/looties/billetera.gif" class="mb-4 mx-auto w-20 h-20" alt="">
+
+      <h1 class="text-green-600 card-title text-2xl text-center mb-10">{{receipt.estado}}</h1>
+      }
+      }
+
+
+      <div class="py-3 flex items-between items-center">
+        <p for="bordered-checkbox-1" class="ms-2 font-bold text-slate-900 font-number">ID de la transacción</p>
+
+        <p class="font-semibold text-slate-900 font-number text-right grow">{{receipt.tr_wompi || 'No disponible'}}</p>
+      </div>
+
+      <hr>
+
+      <div class="py-3 flex items-between items-center">
+        <p for="bordered-checkbox-1" class="ms-2 font-bold text-slate-900 font-number">Fecha</p>
+
+        <p class="font-semibold text-slate-900 font-number text-right grow">{{receipt.tr_fecha}}</p>
+      </div>
+
+
+
+      <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+        <thead class="text-xs text-gray-700 uppercase bg-ghost-50 dark:bg-gray-700 dark:text-gray-400">
+
+          <tr>
+            <th scope="col" class="px-2 py-3">Número de factura</th>
+            <th scope="col" class="px-2 py-3">Tipo de
+              factura</th>
+            <th scope=" col" class="px-2 py-3">Monto</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for(receipt of receipt.facturas; track $index){
+          <tr class="bg-white border-b">
+
+            <td class="px-2 py-4 font-number">
+              <label>{{receipt.numeroFactura}}</label>
+            </td>
+
+            <td class="px-2 py-4 font-number">
+              <label>{{receipt.tipoFactura}}</label>
+            </td>
+
+
+            <td class="px-2 py-4 font-number">
+              <span class="font-semibold text-gray-500 font-number" [innerHTML]="receipt.monto| formatNumber"></span>
+            </td>
+
+          </tr>
+          }
+
+
+
+
+        </tbody>
+      </table>
+
+      <div class="py-3 flex items-between items-center">
+        <p for="bordered-checkbox-1" class="font-bold text-slate-900 font-number">Total Pagado</p>
+
+
+        <span class="font-bold text-slate-900 font-number text-right grow text-2xl"
+          [innerHTML]="receipt.tr_valor | formatNumber"></span>
+      </div>
+
+    </div>
+  </div>
+
+
+  <div class="flex justify-center mt-10">
+
+    <a class="button w-1/2 text-center" (click)="downloadSupport()">Descargar
+      comprobante</a>
+
+    <a class="button w-1/2 text-center" [routerLink]="['/historial-pagos']">Volver</a>
+
+  </div>
+  }
+  @if(hasError && !isLoading){
+  <div class="card text-center">
+
+    <img src="assets/looties/advertencia.gif" class="mb-4 mx-auto w-20 h-20" alt="">
+
+    <h1 class="text mb-6">Error al cargar el comprobante, por favor, intentalo nuevamente</h1>
+    <a class="button w-1/2 text-center" [routerLink]="['/historial-pagos']">Volver</a>
+
+  </div>
+  }
+
+</div>

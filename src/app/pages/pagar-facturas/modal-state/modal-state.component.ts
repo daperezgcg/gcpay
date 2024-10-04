@@ -1,5 +1,9 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { Router } from '@angular/router';
+import { GcPayService } from '@services/gcpay.service';
+import { flowbiteUtilities } from '@utilities/flowbite.utils';
+import { initFlowbite } from 'flowbite';
 
 @Component({
   selector: 'app-modal-state',
@@ -9,8 +13,16 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
   styleUrl: './modal-state.component.scss',
 })
 export class ModalStateComponent {
+  private interval?: any;
+
+  ngOnInit(): void {
+    initFlowbite();
+  }
+
   @Input()
   public state: string = '0';
+  public id: any = 0;
+  gcPayService: GcPayService = inject(GcPayService);
 
   public configs: Record<
     string,
@@ -24,9 +36,8 @@ export class ModalStateComponent {
       src: this.sanitizer.bypassSecurityTrustResourceUrl(
         'assets/looties/clock.gif'
       ),
-      title: 'Tiempo de espera finalizado',
-      description:
-        'El tiempo de espera para procesar el pago ha expirado. Por favor, intente nuevamente.',
+      title: 'Esperando confirmación del pago',
+      description: 'Lorem ipsum sit ai met',
     },
 
     '1': {
@@ -64,7 +75,51 @@ export class ModalStateComponent {
       description:
         'Ha ocurrido un error al procesar el pago. Por favor, intenta nuevamente más tarde.',
     },
+    '5': {
+      src: this.sanitizer.bypassSecurityTrustResourceUrl(
+        'assets/looties/clock.gif'
+      ),
+      title: 'Se ha agotado el tiempo',
+      description:
+        'Si ya realizaste el pago en verificalo nuevamente para obtener el detalle, o puedes consultarlo en el historial de pagos',
+    },
+    '6': {
+      src: this.sanitizer.bypassSecurityTrustResourceUrl(
+        'assets/looties/clock.gif'
+      ),
+      title: 'No se ha podido verificar tu pago',
+      description:
+        'Si ya realizaste el pago en verificalo nuevamente para obtener el detalle, o puedes consultarlo en el historial de pagos',
+    },
   };
 
-  constructor(private sanitizer: DomSanitizer) {}
+  tryAgain() {
+    this.state = '0';
+    let limit = 3;
+    this.gcPayService.isPaying = true;
+    clearInterval(this.interval);
+    this.interval = setInterval(() => {
+      this.gcPayService.consultState(this.id).subscribe((data) => {
+        if (data != '0') {
+          this.state = data;
+          this.gcPayService.getBills();
+          clearInterval(this.interval);
+          this.gcPayService.isPaying = false;
+        } else {
+          this.state = '6';
+          clearInterval(this.interval);
+        }
+      });
+
+      limit--;
+    }, 3000);
+  }
+
+  moveToHistory() {
+    this.gcPayService.isPaying = false;
+    flowbiteUtilities.closeModal('#state-modal');
+    this.router.navigate(['/historial-pagos']);
+  }
+
+  constructor(private sanitizer: DomSanitizer, private router: Router) {}
 }

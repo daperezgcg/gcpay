@@ -1,64 +1,58 @@
 <section class="bg-slate-900">
-  <button
-    data-drawer-target="sidebar-multi-level-sidebar"
-    data-drawer-toggle="sidebar-multi-level-sidebar"
-    aria-controls="sidebar-multi-level-sidebar"
-    type="button"
-    class="inline-flex items-center p-2 mt-2 ms-3 text-sm text-gray-500 rounded-lg xl:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
-  >
+  <button data-drawer-target="sidebar-multi-level-sidebar" data-drawer-toggle="sidebar-multi-level-sidebar"
+    aria-controls="sidebar-multi-level-sidebar" type="button"
+    class="inline-flex items-center p-2 mt-2 ms-3 text-sm text-gray-500 rounded-lg xl:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
     <span class="sr-only">Open sidebar</span>
-    <svg
-      class="w-6 h-6"
-      aria-hidden="true"
-      fill="currentColor"
-      viewBox="0 0 20 20"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        clip-rule="evenodd"
-        fill-rule="evenodd"
-        d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"
-      ></path>
+    <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+      <path clip-rule="evenodd" fill-rule="evenodd"
+        d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z">
+      </path>
     </svg>
   </button>
 
-  <aside
-    id="sidebar-multi-level-sidebar"
+  <aside id="sidebar-multi-level-sidebar"
     class="fixed top-0 left-0 z-40 w-9/12 xl:w-44 2xl:w-72 h-screen transition-transform -translate-x-full xl:translate-x-0"
-    aria-label="Sidebar"
-  >
+    aria-label="Sidebar">
     <div class="h-full py-6 px-4 overflow-y-auto bg-slate-900 dark:bg-gray-800">
       <h1 class="font-semibold text-ghost-100 text-3xl mb-14">
         <span class="font-light">GC</span>Pay
       </h1>
 
       <ul class="space-y-2 w-full font-medium">
-        @for (li of menu; track li.id) {
-        <li>
-          <button
-            type="button"
-            [routerLink]="li.url"
-            class="flex items-center w-full p-4 text-sm text-ghost-50 transitions rounded-lg group hover:bg-slate-800"
-            aria-controls="dropdown-example"
-            data-collapse-toggle="dropdown-example"
-          >
-            <i class="{{ li.icon }}"></i>
 
-            <a
-              routerLinkActive="nav__link--inside--activate"
-              class="flex-1 ms-3 text-left rtl:text-right whitespace-nowrap"
-              >{{ li.title }}</a
-            >
+        <li>
+          <button type="button" routerLinkActive="active-link" routerLink="/pagar-facturas"
+            class="flex items-center w-full p-4 text-sm text-ghost-200 transitions rounded-lg group hover:bg-slate-800"
+            aria-controls="dropdown-example" data-collapse-toggle="dropdown-example">
+            <i class="me-3 fa-solid fa-file-invoice"></i>
+            Facturas
           </button>
         </li>
-        }
+
+        <li>
+          <button type="button" routerLinkActive="active-link" routerLink="/historial-pagos"
+            class="flex items-center w-full p-4 text-sm text-ghost-200 transitions rounded-lg group hover:bg-slate-800"
+            aria-controls="dropdown-example" data-collapse-toggle="dropdown-example">
+            <i class="me-3 fa-solid fa-rectangle-list"></i> Historial
+          </button>
+        </li>
+
+        <li>
+          <button type="button" routerLinkActive="active-link" routerLink="/comprobante"
+            class="flex items-center w-full p-4 text-sm text-ghost-200 transitions rounded-lg group hover:bg-slate-800"
+            aria-controls="dropdown-example" data-collapse-toggle="dropdown-example">
+            <i class="me-3 fa-solid fa-house"></i> Soporte
+          </button>
+        </li>
+
       </ul>
     </div>
   </aside>
 
   <div class="p-2 md:p-4 ml-0 xl:ml-44 2xl:ml-72">
+
     <div class="border-2 bg-ghost-50 rounded-2xl p-2 md:p-6 min-h-screen">
-     <router-outlet></router-outlet>
+      <router-outlet></router-outlet>
     </div>
   </div>
 </section>

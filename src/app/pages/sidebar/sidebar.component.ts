@@ -1,11 +1,15 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import {
+  ActivatedRoute,
+  RouterLink,
+  RouterLinkActive,
+  RouterOutlet,
+} from '@angular/router';
 
 @Component({
   selector: 'app-sidebar',
   standalone: true,
-  imports: [RouterLink, RouterOutlet],
+  imports: [RouterLink, RouterOutlet, RouterLinkActive],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.scss',
 })
@@ -17,7 +21,7 @@ export class SidebarComponent {
       icon: 'fa-solid fa-house',
       title: 'Facturas',
       id: 1,
-      url: '/pagar-facturasss',
+      url: '/pagar-facturass',
       parent_menu: 1,
     },
     {
@@ -25,6 +29,13 @@ export class SidebarComponent {
       title: 'Historial',
       id: 2,
       url: '/historial-pagos',
+      parent_menu: 1,
+    },
+    {
+      icon: 'fa-solid fa-life-ring',
+      title: 'Soporte',
+      id: 3,
+      url: '/soporte',
       parent_menu: 1,
     },
   ];

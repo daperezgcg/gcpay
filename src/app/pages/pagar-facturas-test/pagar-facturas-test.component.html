@@ -1,0 +1,6 @@
+<app-user-widget></app-user-widget>
+@if(!showCheckout){
+<app-seleccionar-facturas (goToCheckout)="goToChekout()"></app-seleccionar-facturas>
+}@else {
+<app-checkout></app-checkout>
+}

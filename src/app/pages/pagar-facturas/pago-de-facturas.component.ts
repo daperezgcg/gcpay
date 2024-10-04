@@ -1,20 +1,20 @@
-import { Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
-import { GcPayService } from '@services/gcpay.service';
-import { toastAlert } from '@utilities/toastAlert.utils';
 import { Component, OnInit, inject } from '@angular/core';
-import 'vanilla-calendar-pro/build/vanilla-calendar.min.css';
-import { FormatNumberPipe } from '@pipes/format-number.pipe';
-import { flowbiteUtilities } from '@utilities/flowbite.utils';
-import { Modal, ModalInterface, initFlowbite } from 'flowbite';
+import { Router } from '@angular/router';
 import { CalendarDirective } from '@directives/calendar.directive';
-import { ModalPayComponent } from './modal-pay/modal-pay.component';
-import { LoaderComponent } from '@templates/loader/loader.component';
 import { IBill, ITotals } from '@interfaces/pagar-facturas.interface';
-import { ModalStateComponent } from './modal-state/modal-state.component';
-import { ModalLoadingComponent } from './modal-loading/modal-loading.component';
-import { ModalImpuestoComponent } from './modal-impuesto/modal-impuesto.component';
+import { FormatNumberPipe } from '@pipes/format-number.pipe';
+import { GcPayService } from '@services/gcpay.service';
+import { LoaderComponent } from '@templates/loader/loader.component';
 import { UserWidgetComponent } from '@templates/user-widget/user-widget.component';
+import { flowbiteUtilities } from '@utilities/flowbite.utils';
+import { toastAlert } from '@utilities/toastAlert.utils';
+import { Modal, ModalInterface, initFlowbite } from 'flowbite';
+import 'vanilla-calendar-pro/build/vanilla-calendar.min.css';
+import { ModalImpuestoComponent } from './modal-impuesto/modal-impuesto.component';
+import { ModalLoadingComponent } from './modal-loading/modal-loading.component';
+import { ModalPayComponent } from './modal-pay/modal-pay.component';
+import { ModalStateComponent } from './modal-state/modal-state.component';
 FormatNumberPipe;
 @Component({
   selector: 'app-pago-de-facturas',
@@ -36,7 +36,8 @@ FormatNumberPipe;
 export class PagodeFacturasComponent implements OnInit {
   private interval?: any;
   private initFlowbite: boolean = true;
-  private gcPayService: GcPayService = inject(GcPayService);
+  gcPayService: GcPayService = inject(GcPayService);
+  idTransaction: any;
 
   public isLoading: boolean = false;
   public router: Router = new Router();
@@ -63,6 +64,7 @@ export class PagodeFacturasComponent implements OnInit {
 
   ngOnInit(): void {
     this.getBills();
+    this.gcPayService.getApiData();
   }
 
   getBills() {
@@ -72,6 +74,7 @@ export class PagodeFacturasComponent implements OnInit {
       this.bills = data.facturas;
       this.showBills = data.facturas;
       this.discounts = data.descuentos;
+      console.log(data, '76');
 
       if (this.initFlowbite) {
         this.initFlowbite = false;
@@ -164,21 +167,27 @@ export class PagodeFacturasComponent implements OnInit {
   }
 
   awaitTransaction(id: string) {
-    let limit = 10;
+    this.gcPayService.isPaying = true;
+    this.idTransaction = id;
+    let limit = 3;
+    this.toggleModals();
+    this.stateTransaction = '0';
     clearInterval(this.interval);
     this.interval = setInterval(() => {
       this.gcPayService.consultState(id).subscribe((data) => {
         if (data != '0') {
           this.stateTransaction = data;
-          this.toggleModals();
           this.getBills();
+          this.gcPayService.isPaying = false;
+          clearInterval(this.interval);
         } else if (limit === 0) {
-          this.stateTransaction = '0';
-          this.toggleModals();
+          this.stateTransaction = '5';
+          clearInterval(this.interval);
         }
       });
+
       limit--;
-    }, 30000);
+    }, 3000); //30000
   }
 
   payBillsModal() {
@@ -191,6 +200,7 @@ export class PagodeFacturasComponent implements OnInit {
     const modalLoading: ModalInterface = new Modal(
       document.querySelector('#loading-modal')! as HTMLElement
     );
+
     modalLoading.hide();
 
     const modalState: ModalInterface = new Modal(
