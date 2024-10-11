@@ -2,12 +2,13 @@ import { DatePipe } from '@angular/common';
 import { Component, EventEmitter, OnInit, Output, inject } from '@angular/core';
 import { IBill } from '@interfaces/pagar-facturas.interface';
 import { FormatNumberPipe } from '@pipes/format-number.pipe';
-import { GcPayServiceTest } from '@services/gcpay-test.service';
+import { GcPayService } from '@services/gcpay.service';
 
 import { LoaderComponent } from '@templates/loader/loader.component';
 import { UserWidgetComponent } from '@templates/user-widget/user-widget.component';
 import { toastAlert } from '@utilities/toastAlert.utils';
 import { initFlowbite } from 'flowbite';
+import { ModalImpuestoComponent } from '../modal-impuesto/modal-impuesto.component';
 
 @Component({
   selector: 'app-seleccionar-facturas',
@@ -18,6 +19,7 @@ import { initFlowbite } from 'flowbite';
     FormatNumberPipe,
     LoaderComponent,
     UserWidgetComponent,
+    ModalImpuestoComponent,
   ],
   templateUrl: './seleccionar-facturas.component.html',
   styleUrl: './seleccionar-facturas.component.scss',
@@ -30,7 +32,7 @@ export class SeleccionarFacturasComponent implements OnInit {
   public bills: IBill[] = [];
   public showBills: IBill[] = [];
   public discounts: IBill[] = [];
-  gcPayService: GcPayServiceTest = inject(GcPayServiceTest);
+  gcPayService: GcPayService = inject(GcPayService);
 
   public isLoading: boolean = false;
   public modalTax?: IBill;

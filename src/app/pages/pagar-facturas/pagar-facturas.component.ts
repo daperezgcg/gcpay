@@ -1,23 +1,23 @@
 import { Component, inject } from '@angular/core';
 import { UserWidgetComponent } from '@templates/user-widget/user-widget.component';
 import { toastAlert } from '@utilities/toastAlert.utils';
-import { GcPayServiceTest } from '../../services/gcpay-test.service';
+import { GcPayService } from '../../services/gcpay.service';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { SeleccionarFacturasComponent } from './seleccionar-facturas/seleccionar-facturas.component';
 
 @Component({
-  selector: 'app-pagar-facturas-test',
+  selector: 'app-pagar-facturas',
   standalone: true,
   imports: [
     SeleccionarFacturasComponent,
     CheckoutComponent,
     UserWidgetComponent,
   ],
-  templateUrl: './pagar-facturas-test.component.html',
-  styleUrl: './pagar-facturas-test.component.scss',
+  templateUrl: './pagar-facturas.component.html',
+  styleUrl: './pagar-facturas.component.scss',
 })
-export class PagarFacturasTestComponent {
-  gcPayService: GcPayServiceTest = inject(GcPayServiceTest);
+export class PagarFacturasComponent {
+  gcPayService: GcPayService = inject(GcPayService);
 
   showCheckout: boolean = false;
 

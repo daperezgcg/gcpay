@@ -22,8 +22,8 @@ export const routes: Routes = [
       {
         path: 'pagar-facturas',
         loadComponent: () =>
-          import('./pages/pagar-facturas/pago-de-facturas.component').then(
-            (m) => m.PagodeFacturasComponent
+          import('./pages/pagar-facturas/pagar-facturas.component').then(
+            (m) => m.PagarFacturasComponent
           ),
       },
       {
@@ -40,13 +40,14 @@ export const routes: Routes = [
             (m) => m.comprobanteComponent
           ),
       },
-      {
-        path: 'pagar-prueba',
-        loadComponent: () =>
-          import(
-            './pages/pagar-facturas-test/pagar-facturas-test.component'
-          ).then((m) => m.PagarFacturasTestComponent),
-      },
+
+      // {
+      //   path: 'soporte',
+      //   loadComponent: () =>
+      //     import('./pages/soporte/soporte.component').then(
+      //       (m) => m.SoporteComponent
+      //     ),
+      // },
     ],
   },
   {

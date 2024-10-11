@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { GcpayTestService } from './gcpay-test.service';
+import { GcpayTestService } from './gcpay.service';
 
 describe('GcpayTestService', () => {
   let service: GcpayTestService;

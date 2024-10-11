@@ -35,6 +35,13 @@ export class SidebarComponent {
       icon: 'fa-solid fa-life-ring',
       title: 'Soporte',
       id: 3,
+      url: '/comprobante',
+      parent_menu: 1,
+    },
+    {
+      icon: 'fa-solid fa-life-ring',
+      title: 'Soporte',
+      id: 3,
       url: '/soporte',
       parent_menu: 1,
     },

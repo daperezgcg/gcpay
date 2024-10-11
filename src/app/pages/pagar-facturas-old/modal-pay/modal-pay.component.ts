@@ -42,7 +42,7 @@ export class ModalPayComponent implements OnInit {
         return data.nro_factura + '-' + data.tipo_documento;
       });
 
-      this.gcPayService.payBills(this.total, bills).subscribe((data) => {
+      this.gcPayService.payBills(this.total, bills, '').subscribe((data) => {
         window.open(data.enlace);
         // window.location.href = data.enlace;
 

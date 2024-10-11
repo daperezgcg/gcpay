@@ -1,0 +1,37 @@
+.receipt-container {
+  background-color: white;
+  padding: 20px;
+  width: 300px;
+  margin: 20px auto;
+  border: 1px solid #ccc;
+  position: relative;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-bottom: none;
+  overflow: hidden;
+}
+
+/* SVG para el borde redondeado */
+.receipt-border {
+  display: block;
+  width: 100%;
+  height: auto;
+  position: absolute;
+  bottom: -1px; /* Para asegurarnos de que esté justo en el borde */
+  left: 0;
+}
+
+.w-circles {
+  width: 100%;
+}
+
+@media print {
+  .print-blue {
+    color: blue;
+  }
+  .print-red {
+    color: red;
+  }
+  .print-green {
+    color: green;
+  }
+}

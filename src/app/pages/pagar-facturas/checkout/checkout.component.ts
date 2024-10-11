@@ -1,7 +1,7 @@
 import { JsonPipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { FormatNumberPipe } from '@pipes/format-number.pipe';
-import { GcPayServiceTest } from '@services/gcpay-test.service';
+import { GcPayService } from '@services/gcpay.service';
 import { LoaderComponent } from '@templates/loader/loader.component';
 import { initFlowbite } from 'flowbite';
 
@@ -13,7 +13,7 @@ import { initFlowbite } from 'flowbite';
   styleUrl: './checkout.component.scss',
 })
 export class CheckoutComponent {
-  gcPayService: GcPayServiceTest = inject(GcPayServiceTest);
+  gcPayService: GcPayService = inject(GcPayService);
   billsSelected;
   totalValues: any;
   totalDiscounts;

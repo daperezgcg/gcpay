@@ -7,9 +7,22 @@
         <h1 class="card-title">Historial de pagos</h1>
       </div>
       <div class="md:flex gap-3">
-        <app-search-bar></app-search-bar>
+        <form class="max-w-md mb-3 md:mb-0">
+          <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only">Search</label>
+          <div class="relative">
+            <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+              <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+              </svg>
+            </div>
+            <input class="ps-10 text-xs input" placeholder="Buscar" #searchInput (input)="filterBy(searchInput)" />
+          </div>
+        </form>
 
-        <div class="relative max-w-sm mb-3 md:mb-0">
+
+        <!-- <div class="relative max-w-sm mb-3 md:mb-0">
           <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
             <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
               fill="currentColor" viewBox="0 0 20 20">
@@ -18,15 +31,15 @@
             </svg>
           </div>
           <input datepicker type="text" class="input text-xs ps-10" placeholder="Select date" />
-        </div>
+        </div> -->
 
         <form class="max-w-sm ms-auto mb-3 md:mb-0">
-          <select id="countries" class="input text-xs">
-            <option selected>Estado</option>
-            <option value="US">United States</option>
-            <option value="CA">Canada</option>
-            <option value="FR">France</option>
-            <option value="DE">Germany</option>
+          <select #selectFilter (change)="filterByState(selectFilter.value)" id="countries" class="input text-xs">
+            <option class="hidden" selected>Estado</option>
+            <option value="es">En espera</option>
+            <option value="ap">Aprobado</option>
+            <option value="re">Rechazado</option>
+            <option value="an">Anulado</option>
           </select>
         </form>
       </div>
@@ -56,32 +69,36 @@
         </thead>
 
         <tbody>
-          @for (payment of payments; track $index) {
+          @for (payment of payments; track $index ) {
+
           <tr class="bg-white border-b hover:bg-gray-50">
             <td class="px-2 py-4 font-number text-slate-900 font-semibold">
-              {{ payment.tr_wompi ?? "No hay referencia" }}
+              {{ payment.tr_wompi || "No hay referencia" }}
             </td>
 
             <td class="px-2 py-4 font-number">
               {{ payment.tr_fecha }}
             </td>
+
             <td class="px-2 py-4">
               <span class="font-number font-bold" [innerHTML]="payment.tr_valor| formatNumber"> </span>
             </td>
 
             <td class="px-2 py-4">
               <div href="#" class="font-semibold py-1 px-3 rounded-full text-xs text-center sm:block md:inline"
-                [ngClass]="classStatus[payment.estado]">
+                [ngClass]="gcPayService.classStatus[payment.estado]">
                 {{ payment.estado }}
               </div>
             </td>
 
             <td class="px-2 py-4">
+              @if (payment.estado === 'Aprobado') {
               <button (click)="goToDetails(payment.tr_wompi)"
                 class="text-slate-100 text-xs font-bold py-0 px-5 border border-slate-50 rounded-lg hover:bg-slate-900 hover:text-ghost-100 transitions group cursor-pointer">
                 <i class="fa-solid fa-file-arrow-down me-2 text-base"></i>
                 Comprobante
               </button>
+              }
             </td>
           </tr>
           }
@@ -93,6 +110,8 @@
         <app-loader theme="dark"></app-loader>
       </div>
       }
+
+
 
 
     </div>

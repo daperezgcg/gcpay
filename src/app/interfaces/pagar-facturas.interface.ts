@@ -42,7 +42,7 @@ export interface IReceipt {
 }
 
 interface IReceiptBill {
-  numeroFactura: number;
-  tipoFactura: number;
+  fac_numero: number;
+  tipo: number;
   monto: number;
 }

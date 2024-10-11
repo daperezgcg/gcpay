@@ -1,6 +1,7 @@
 import { JsonPipe, NgClass } from '@angular/common';
 import { Component, OnInit, inject } from '@angular/core';
 import { Router } from '@angular/router';
+import { IReceipt } from '@interfaces/pagar-facturas.interface';
 import { GcPayService } from '@services/gcpay.service';
 import { LoaderComponent } from '@templates/loader/loader.component';
 import { SearchBarComponent } from '@templates/search-bar/search-bar.component';
@@ -24,14 +25,13 @@ import { FormatNumberPipe } from '../../pipes/format-number.pipe';
 })
 export class HistorialPagosComponent implements OnInit {
   isLoading = true;
-  private gcPayService: GcPayService = inject(GcPayService);
-  public payments: any[] = [];
-  public classStatus: Record<string, string> = {
-    Rechazado: 'bg-red-500/25 text-red-500',
-    Anulado: 'bg-red-500/25 text-red-500',
-    Aprobado: 'bg-green-500/25 text-green-500',
-    'En espera': 'bg-blue-500/25 text-blue-500',
-  };
+  // private gcPayService: GcPayService = inject(GcPayService);
+  gcPayService: GcPayService = inject(GcPayService);
+
+  public payments: IReceipt[] = [];
+
+  paymentsToFilter: IReceipt[] = [];
+
   constructor(private router: Router) {}
 
   ngOnInit() {
@@ -42,6 +42,37 @@ export class HistorialPagosComponent implements OnInit {
   }
 
   goToDetails(id: string) {
-    this.router.navigate(['/soporte'], { queryParams: { id } });
+    this.router.navigate(['/comprobante'], { queryParams: { id } });
+  }
+
+  filterBy(searchInput: HTMLInputElement) {
+    this.cleanFilter();
+
+    const cleanValue = searchInput.value.trim().toLocaleLowerCase();
+
+    if (cleanValue) {
+      this.payments = this.paymentsToFilter.filter((p) =>
+        p.tr_wompi.toLowerCase().includes(cleanValue)
+      );
+    } else {
+      this.payments = this.paymentsToFilter;
+      this.paymentsToFilter = [];
+    }
+  }
+
+  filterByState(state: string) {
+    this.cleanFilter();
+
+    if (state) {
+      this.payments = this.paymentsToFilter.filter((p) =>
+        p.estado.toLowerCase().includes(state)
+      );
+    }
+  }
+
+  cleanFilter() {
+    this.paymentsToFilter.length
+      ? null
+      : (this.paymentsToFilter = [...this.payments]);
   }
 }

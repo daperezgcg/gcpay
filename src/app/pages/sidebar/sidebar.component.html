@@ -13,41 +13,56 @@
   <aside id="sidebar-multi-level-sidebar"
     class="fixed top-0 left-0 z-40 w-9/12 xl:w-44 2xl:w-72 h-screen transition-transform -translate-x-full xl:translate-x-0"
     aria-label="Sidebar">
-    <div class="h-full py-6 px-4 overflow-y-auto bg-slate-900 dark:bg-gray-800">
-      <h1 class="font-semibold text-ghost-100 text-3xl mb-14">
-        <span class="font-light">GC</span>Pay
-      </h1>
+    <div class="h-full flex flex-col justify-between py-6 px-4 overflow-y-auto bg-slate-900 dark:bg-gray-800">
+      <div class="mt-8">
+        <img src="assets/img/gcpay.png" class="ms-2 w-36 mb-6" alt="">
 
-      <ul class="space-y-2 w-full font-medium">
 
-        <li>
-          <button type="button" routerLinkActive="active-link" routerLink="/pagar-facturas"
-            class="flex items-center w-full p-4 text-sm text-ghost-200 transitions rounded-lg group hover:bg-slate-800"
-            aria-controls="dropdown-example" data-collapse-toggle="dropdown-example">
-            <i class="me-3 fa-solid fa-file-invoice"></i>
-            Facturas
-          </button>
-        </li>
+        <ul class="space-y-2 w-full font-medium">
 
-        <li>
-          <button type="button" routerLinkActive="active-link" routerLink="/historial-pagos"
-            class="flex items-center w-full p-4 text-sm text-ghost-200 transitions rounded-lg group hover:bg-slate-800"
-            aria-controls="dropdown-example" data-collapse-toggle="dropdown-example">
-            <i class="me-3 fa-solid fa-rectangle-list"></i> Historial
-          </button>
-        </li>
+          <li>
+            <button type="button" routerLinkActive="active-link" routerLink="/pagar-facturas"
+              class="flex items-center w-full p-4 text-sm text-ghost-200 transitions rounded-lg group hover:bg-slate-800"
+              aria-controls="dropdown-example" data-collapse-toggle="dropdown-example">
+              <i class="me-3 fa-solid fa-file-invoice"></i>
+              Facturas
+            </button>
+          </li>
 
-        <li>
-          <button type="button" routerLinkActive="active-link" routerLink="/comprobante"
-            class="flex items-center w-full p-4 text-sm text-ghost-200 transitions rounded-lg group hover:bg-slate-800"
-            aria-controls="dropdown-example" data-collapse-toggle="dropdown-example">
-            <i class="me-3 fa-solid fa-house"></i> Soporte
-          </button>
-        </li>
+          <li>
+            <button type="button" routerLinkActive="active-link" routerLink="/historial-pagos"
+              class="flex items-center w-full p-4 text-sm text-ghost-200 transitions rounded-lg group hover:bg-slate-800"
+              aria-controls="dropdown-example" data-collapse-toggle="dropdown-example">
+              <i class="me-3 fa-solid fa-rectangle-list"></i> Historial
+            </button>
+          </li>
+          <!--
+          <li>
+            <button type="button" routerLinkActive="active-link" routerLink="/comprobante"
+              class="flex items-center w-full p-4 text-sm text-ghost-200 transitions rounded-lg group hover:bg-slate-800"
+              aria-controls="dropdown-example" data-collapse-toggle="dropdown-example">
+              <i class="me-3 fa-solid fa-house"></i> Comprobante
+            </button>
+          </li> -->
+          <!--
+          <li>
+            <button type="button" routerLinkActive="active-link" routerLink="/soporte"
+              class="flex items-center w-full p-4 text-sm text-ghost-200 transitions rounded-lg group hover:bg-slate-800"
+              aria-controls="dropdown-example" data-collapse-toggle="dropdown-example">
+              <i class="me-3 fa-solid fa-life-ring"></i> Centro de ayuda
+            </button>
+          </li> -->
 
-      </ul>
+        </ul>
+      </div>
+      <button class="btn btn"
+        class="p-4 bg-slate-800 text-ghost-200 font-semibold text-sm border-2 border-transparent w-full rounded-xl hover: hover:bg-ghost-300 hover:text-ghost-100 hover:border-ghost-200 transitions">Cerrar
+        sesión <i class="fa-solid fa-right-from-bracket"></i></button>
+
     </div>
+
   </aside>
+
 
   <div class="p-2 md:p-4 ml-0 xl:ml-44 2xl:ml-72">
 
