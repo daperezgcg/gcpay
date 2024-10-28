@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
@@ -8,4 +9,10 @@ import { RouterLink } from '@angular/router';
   templateUrl: './no-encontrado.component.html',
   styleUrl: './no-encontrado.component.scss',
 })
-export class NoEncontradoComponent {}
+export class NoEncontradoComponent {
+  constructor(private location: Location) {}
+
+  back() {
+    this.location.back();
+  }
+}

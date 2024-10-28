@@ -17,7 +17,8 @@
                   d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
               </svg>
             </div>
-            <input class="ps-10 text-xs input" placeholder="Buscar" #searchInput (input)="filterBy(searchInput)" />
+            <input class="ps-10 text-xs input" placeholder="Buscar por referencia de pago" type="number" #searchInput
+              (input)="filterBy(searchInput)" />
           </div>
         </form>
 
@@ -86,7 +87,7 @@
 
             <td class="px-2 py-4">
               <div href="#" class="font-semibold py-1 px-3 rounded-full text-xs text-center sm:block md:inline"
-                [ngClass]="gcPayService.classStatus[payment.estado]">
+                [ngClass]="gcPayService.classStatus[payment.estado!]">
                 {{ payment.estado }}
               </div>
             </td>

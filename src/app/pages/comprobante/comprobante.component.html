@@ -12,33 +12,34 @@
   <div id="pdfContent">
     <div class="card rounded-b-none border-x-0 border-t-0  border-gray-200 relative">
       <div class="flex absolute top-0 right-0 justify-center items-cente py-2 px-4 rounded-tr-lg rounded-bl-lg"
-        [ngClass]="{'bg-green-500': receipt.estado === 'Aprobado', 'bg-red-500': receipt.estado === 'Anulado', 'bg-red-600': receipt.estado === 'Rechazado', 'bg-blue-500': receipt.estado === 'En espera'}">
-        @switch (receipt.estado) {
+        [ngClass]="{'bg-green-500': receipt.tr_estado === 'Aprobado', 'bg-red-500': receipt.tr_estado === 'Anulado', 'bg-red-600': receipt.tr_estado === 'Rechazado', 'bg-blue-500': receipt.tr_estado === 'En espera'}">
+
+        @switch (receipt.tr_estado) {
         @case ('En espera') {
         <i class="fa-regular fa-circle-check text-lg text-ghost-100 me-2 print-blue"></i>
         <h1 class="text-ghost-100 card-title text-sm text-center mt-1 print-blue">¡Pago
-          {{receipt.estado.toLowerCase()}}!
+          {{receipt.tr_estado.toLowerCase()}}!
         </h1>
         }
 
         @case ('Rechazado') {
         <i class="fa-regular fa-circle-check text-lg text-ghost-100 me-2 print-red"></i>
         <h1 class="text-ghost-100 card-title text-sm text-center mt-1 print-red">¡Pago
-          {{receipt.estado.toLowerCase()}}!
+          {{receipt.tr_estado.toLowerCase()}}!
         </h1>
         }
 
         @case ('Aprobado') {
         <i class="fa-regular fa-circle-check text-lg text-ghost-100 me-2 print-green"></i>
         <h1 class="text-ghost-100 card-title text-sm text-center mt-1 print-green">¡Pago
-          {{receipt.estado.toLowerCase()}}!
+          {{receipt.tr_estado.toLowerCase()}}!
         </h1>
         }
 
         @case ('Anulado') {
         <i class="fa-regular fa-circle-check text-lg text-ghost-100 me-2 print-red"></i>
         <h1 class="text-ghost-100 card-title text-sm text-center mt-1 print-red">¡Pago
-          {{receipt.estado.toLowerCase()}}!
+          {{receipt.tr_estado.toLowerCase()}}!
         </h1>
         }
         }
@@ -46,7 +47,7 @@
       </div>
 
       <div class="border-b border-dashed border-gray-300">
-        <img src="assets/img/logo-gc.jpg" class="w-64 mx-auto" alt="">
+        <img src="assets/img/logo-gc.png" class="w-64 mx-auto mb-6" alt="">
 
       </div>
 
@@ -67,6 +68,13 @@
         <p class="font-semibold text-slate-900 font-number text-right grow">{{receipt.tr_fecha}}</p>
       </div>
 
+
+      @switch (receipt.tr_estado) {
+      @case ('En espera') {
+      <ng-container [ngTemplateOutlet]="rechazado"></ng-container>
+      }
+
+      @case ('Aprobado') {
       <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
         <thead class="text-xs text-gray-700 uppercase bg-ghost-50 dark:bg-gray-700 dark:text-gray-400">
 
@@ -91,7 +99,7 @@
 
 
             <td class="px-2 py-4 font-number">
-              <!-- <span class="font-semibold text-gray-500 font-number" [innerHTML]="receipt.monto| formatNumber"></span> -->
+              <span class="font-semibold text-gray-500 font-number" [innerHTML]="receipt.monto | formatNumber"></span>
             </td>
 
           </tr>
@@ -110,6 +118,25 @@
         <span class="font-bold text-slate-900 font-number text-right grow text-2xl"
           [innerHTML]="receipt.tr_valor | formatNumber"></span>
       </div>
+      }
+
+      @case ('Rechazado') {
+      <ng-container [ngTemplateOutlet]="rechazado"></ng-container>
+      }
+
+      @case ('Anulado') {
+      <ng-container [ngTemplateOutlet]="error"></ng-container>
+      }
+
+      @case ('Error') {
+      <ng-container [ngTemplateOutlet]="error"></ng-container>
+      }
+      @default{
+      <ng-container [ngTemplateOutlet]="error"></ng-container>
+      }
+      }
+
+
 
     </div>
   </div>
@@ -147,3 +174,28 @@
   }
 
 </div>
+
+
+<ng-template #espera>
+  <div class="px-4 py-6 bg-red-500/10 border border-blue-500 rounded-lg text-center">
+    <h1><i class="fa-regular fa-clock text-blue-500 text-4xl mb-4"></i></h1>
+    <p class="text font-semibold text-blue-500">Tu transacción se está procesando, por favor verifica el estado luego.
+    </p>
+  </div>
+</ng-template>
+
+
+<ng-template #rechazado>
+  <div class="px-4 py-6 bg-red-500/10 border border-red-500 rounded-lg text-center">
+    <h1><i class="fa-solid fa-triangle-exclamation text-red-500 text-4xl mb-4"></i></h1>
+    <p class="text font-semibold text-red-500">Tu transacción ha sido declinada, por favor intentalo nuevamente.</p>
+  </div>
+</ng-template>
+
+<ng-template #error>
+  <div class="px-4 py-6 bg-red-500/10 border border-red-500 rounded-lg text-center">
+    <h1><i class="fa-solid fa-triangle-exclamation text-red-500 text-4xl mb-4"></i></h1>
+    <p class="text font-semibold text-red-500">Ha ocurrido un error con la transacción, por favor intentalo nuevamente.
+    </p>
+  </div>
+</ng-template>

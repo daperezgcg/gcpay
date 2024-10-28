@@ -48,7 +48,6 @@ export class SeleccionarFacturasComponent implements OnInit {
       this.bills = data.facturas;
       this.showBills = data.facturas;
       this.discounts = data.descuentos;
-      console.log(data, '76');
 
       if (this.initFlowbite) {
         this.initFlowbite = false;

@@ -17,7 +17,7 @@ import { SeleccionarFacturasComponent } from './seleccionar-facturas/seleccionar
   styleUrl: './pagar-facturas.component.scss',
 })
 export class PagarFacturasComponent {
-  gcPayService: GcPayService = inject(GcPayService);
+  private gcPayService: GcPayService = inject(GcPayService);
 
   showCheckout: boolean = false;
 

@@ -16,6 +16,11 @@ import {
 export class SidebarComponent {
   constructor(public route: ActivatedRoute) {}
 
+  logOut() {
+    localStorage.clear();
+    window.location.assign('https://www.garantiascomunitarias.com/plataformas');
+  }
+
   menu: Array<Menu> = [
     {
       icon: 'fa-solid fa-house',

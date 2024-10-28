@@ -1,4 +1,4 @@
-import { JsonPipe, NgClass, NgSwitch } from '@angular/common';
+import { JsonPipe, NgClass, NgSwitch, NgTemplateOutlet } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { ActivatedRoute, RouterLink, RouterModule } from '@angular/router';
 import { IReceipt } from '@interfaces/pagar-facturas.interface';
@@ -21,12 +21,13 @@ import { jsPDF } from 'jspdf';
     RouterLink,
     RouterModule,
     NgClass,
+    NgTemplateOutlet,
   ],
   templateUrl: './comprobante.component.html',
   styleUrl: './comprobante.component.scss',
 })
 export class comprobanteComponent {
-  gcPayService: GcPayService = inject(GcPayService);
+  private gcPayService: GcPayService = inject(GcPayService);
   id: string = '';
   env: string = '';
   filename: string = '';
@@ -36,7 +37,7 @@ export class comprobanteComponent {
     tr_wompi: '',
     tr_valor: 0,
     tr_fecha: '',
-    estado: '',
+    tr_estado: '',
     facturas: [
       {
         fac_numero: 0,
@@ -64,8 +65,6 @@ export class comprobanteComponent {
   createReceipt(id: string) {
     this.gcPayService.getReceiptBill(id).subscribe({
       next: (response) => {
-        console.log(response, 'response receipt');
-
         // Si los datos no son válidos
         if (!response || response.estado === 0) {
           this.handleError('Datos no disponibles.');
@@ -74,6 +73,7 @@ export class comprobanteComponent {
 
         // Asigna el recibo y desactiva el indicador de carga
         this.receipt = response;
+
         this.isLoading = false;
       },
       error: (err) => {
@@ -98,13 +98,10 @@ export class comprobanteComponent {
       const imgWidth = 150;
       const imgHeight = (canvas.height * imgWidth) / canvas.width;
       const contentDataURL = canvas.toDataURL('image/png');
-      // console.log(contentHeight, 'content');
-      // console.log(imgHeight, 'img');
 
       const pdfWidth = 170;
       const pdfHeight = imgHeight + 60;
       const pdf = new jsPDF('p', 'mm', [pdfWidth, pdfHeight]);
-      // console.log([pdfWidth, pdfHeight]);
 
       const positionY = 30;
       const positionX = (pdf.internal.pageSize.getWidth() - imgWidth) / 2;

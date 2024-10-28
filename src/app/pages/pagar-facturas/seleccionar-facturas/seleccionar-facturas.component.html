@@ -6,30 +6,7 @@
           <h1 class="card-title">Facturas</h1>
         </div>
         <div class="md:flex gap-3">
-          <!-- <form class="max-w-md mb-3 md:mb-0">
-                  <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only">Search</label>
-                  <div class="relative">
-                     <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                        <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
-                           xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                           <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                              d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
-                        </svg>
-                     </div>
-                     <input type="search" class="ps-10 p-2 text-xs input" placeholder="Buscar" required />
-                  </div>
-               </form> -->
-          <!-- <div class="relative max-w-sm">
-                  <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                     <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
-                        xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                        <path
-                           d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
-                     </svg>
-                  </div>
-                  <input appCalendar class="input text-xs ps-8 h-[34px]" type="text"
-                     placeholder="Selecciona una fecha" />
-               </div> -->
+
           <form class="mb-3 md:mb-0">
             <select (change)="sortBills($event)" class="input input-lg text-xs">
               <option selected>Ordenar por ...</option>
@@ -52,6 +29,7 @@
           </div>
         </div>
       </div>
+
       <div class="relative overflow-x-auto shadow-md sm:rounded-lg h-[93%] overflow-y-auto">
         @if (!isLoading) {
         @if (showBills.length === 0) {

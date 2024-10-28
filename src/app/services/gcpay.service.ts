@@ -17,6 +17,7 @@ export class GcPayService {
     Anulado: 'bg-red-500/25 text-red-500',
     Aprobado: 'bg-green-500/25 text-green-500',
     'En espera': 'bg-blue-500/25 text-blue-500',
+    Error: 'bg-red-500/25 text-red-500',
   };
 
   private readonly httpClient: HttpClient;
@@ -41,17 +42,6 @@ export class GcPayService {
     this.urlApi = environment.GCpayApi;
   }
 
-  getApiData() {
-    this.httpClient.get(this.urlApi).subscribe(
-      (data) => {
-        console.log('Datos recibidos desde GCpayApi:', data); // Mostrar en consola los datos
-      },
-      (error) => {
-        console.error('Error al obtener los datos de GCpayApi:', error); // Manejo de error
-      }
-    );
-  }
-
   public getBills = () => {
     const formData = new FormData();
     formData.append('funcion', 'facturas');
@@ -59,11 +49,7 @@ export class GcPayService {
     return this.httpClient.post<IDataPay>(this.urlApi, formData);
   };
 
-  public payBills = (
-    monto: number,
-    facturas: string[],
-    redirectUrl: string
-  ) => {
+  public payBills = (monto: number, facturas: string[]) => {
     const formData = new FormData();
     formData.append('monto', monto + '');
     formData.append('funcion', 'enlace');
@@ -72,7 +58,6 @@ export class GcPayService {
     facturas.forEach((factura, index) => {
       formData.append(`facturas[${index}]`, factura);
     });
-    console.log(monto, facturas, redirectUrl);
 
     return this.httpClient.post<IWompi>(this.urlApi, formData);
   };
@@ -97,7 +82,6 @@ export class GcPayService {
   }
 
   public getReceiptBill(id: string) {
-    console.log(id);
     const formData = new FormData();
     formData.append('funcion', 'buscar_transaccion');
     formData.append('tr_wompi', id);

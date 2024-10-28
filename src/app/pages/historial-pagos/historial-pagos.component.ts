@@ -25,7 +25,7 @@ import { FormatNumberPipe } from '../../pipes/format-number.pipe';
 })
 export class HistorialPagosComponent implements OnInit {
   isLoading = true;
-  // private gcPayService: GcPayService = inject(GcPayService);
+
   gcPayService: GcPayService = inject(GcPayService);
 
   public payments: IReceipt[] = [];
@@ -51,8 +51,11 @@ export class HistorialPagosComponent implements OnInit {
     const cleanValue = searchInput.value.trim().toLocaleLowerCase();
 
     if (cleanValue) {
-      this.payments = this.paymentsToFilter.filter((p) =>
-        p.tr_wompi.toLowerCase().includes(cleanValue)
+      this.payments = this.paymentsToFilter.filter(
+        (p) =>
+          p.tr_wompi &&
+          typeof p.tr_wompi === 'string' &&
+          p.tr_wompi.toLowerCase().includes(cleanValue)
       );
     } else {
       this.payments = this.paymentsToFilter;
@@ -65,7 +68,7 @@ export class HistorialPagosComponent implements OnInit {
 
     if (state) {
       this.payments = this.paymentsToFilter.filter((p) =>
-        p.estado.toLowerCase().includes(state)
+        p.estado!.toLowerCase().includes(state)
       );
     }
   }

@@ -37,7 +37,8 @@ export interface IReceipt {
   tr_wompi: string;
   tr_valor: number;
   tr_fecha: string;
-  estado: string;
+  tr_estado?: string;
+  estado?: string;
   facturas: IReceiptBill[];
 }
 

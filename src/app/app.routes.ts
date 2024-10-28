@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+
 import { SidebarComponent } from './pages/sidebar/sidebar.component';
 
 export const routes: Routes = [
@@ -40,14 +41,6 @@ export const routes: Routes = [
             (m) => m.comprobanteComponent
           ),
       },
-
-      // {
-      //   path: 'soporte',
-      //   loadComponent: () =>
-      //     import('./pages/soporte/soporte.component').then(
-      //       (m) => m.SoporteComponent
-      //     ),
-      // },
     ],
   },
   {
