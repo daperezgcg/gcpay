@@ -29,6 +29,7 @@ export interface IDataPay {
 
 export interface IWompi {
   enlace: string;
+  estado: number;
   id: string;
 }
 

@@ -73,7 +73,6 @@ export class SoporteComponent implements OnInit {
 
   onSubmit() {
     if (this.contactForm.valid) {
-      console.log(this.contactForm.value); // Muestra el valor del formulario si es válido
       toastAlert.fireAlert(
         'success',
         'Tu mensaje ha sido enviado correctamente'

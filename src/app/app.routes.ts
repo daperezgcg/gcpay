@@ -6,7 +6,8 @@ export const routes: Routes = [
   {
     path: '',
     component: SidebarComponent,
-    // canActivate: [authGuard],
+    // canActivate: [navigatorGuard],
+    // canActivate: [authGuard, navigatorGuard], //? activar antes de subir a prod
     children: [
       {
         path: '',
@@ -47,6 +48,13 @@ export const routes: Routes = [
     path: 'login',
     loadComponent: () =>
       import('./pages/login/login.component').then((m) => m.LoginComponent),
+  },
+  {
+    path: 'navegador-no-permitido',
+    loadComponent: () =>
+      import(
+        './pages/navegador-no-permitido/navegador-no-permitido.component'
+      ).then((m) => m.NavegadorNoPermitidoComponent),
   },
   {
     path: '**',

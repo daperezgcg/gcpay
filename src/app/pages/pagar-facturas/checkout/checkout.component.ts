@@ -1,16 +1,16 @@
-import { JsonPipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { ITotals } from '@interfaces/pagar-facturas.interface';
 import { FormatNumberPipe } from '@pipes/format-number.pipe';
 import { GcPayService } from '@services/gcpay.service';
 import { LoaderComponent } from '@templates/loader/loader.component';
+import { toastAlert } from '@utilities/toastAlert.utils';
 import { initFlowbite } from 'flowbite';
 
 @Component({
   selector: 'app-checkout',
   standalone: true,
-  imports: [JsonPipe, FormatNumberPipe, LoaderComponent],
+  imports: [FormatNumberPipe, LoaderComponent],
   templateUrl: './checkout.component.html',
   styleUrl: './checkout.component.scss',
 })
@@ -49,7 +49,7 @@ export class CheckoutComponent {
       deduccionesNotaCredito: 0,
     };
     this.totalDiscounts = [];
-    this.Router.navigate(['/pagar-facturas']);
+    window.location.reload();
   }
 
   payBills() {
@@ -61,10 +61,24 @@ export class CheckoutComponent {
       }
     );
 
-    this.gcPayService
-      .payBills(this.totalValues.total, bills)
-      .subscribe((data) => {
-        window.location.href = data.enlace;
-      });
+    this.gcPayService.payBills(this.totalValues.total, bills).subscribe({
+      next: (data) => {
+        if (data.estado === 0) {
+          toastAlert.fireAlert(
+            'error',
+            'Algunas de las facturas seleccionadas ya están en proceso de pago. Por favor, inténtalo nuevamente más tarde.'
+          );
+        } else {
+          window.location.href = data.enlace;
+        }
+      },
+      error: (err) => {
+        toastAlert.fireAlert(
+          'error',
+          'Ocurrió un error al intentar realizar el pago. Inténtalo de nuevo más tarde.'
+        );
+        console.error(err);
+      },
+    });
   }
 }

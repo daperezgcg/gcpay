@@ -18,7 +18,7 @@ export class SidebarComponent {
 
   logOut() {
     localStorage.clear();
-    window.location.assign('https://www.garantiascomunitarias.com/plataformas');
+    window.location.assign('https://www.garantiascomunitarias.com');
   }
 
   menu: Array<Menu> = [

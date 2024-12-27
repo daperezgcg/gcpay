@@ -45,6 +45,7 @@ export class GcPayService {
   public getBills = () => {
     const formData = new FormData();
     formData.append('funcion', 'facturas');
+    formData.append('test', '1');
 
     return this.httpClient.post<IDataPay>(this.urlApi, formData);
   };
@@ -61,8 +62,6 @@ export class GcPayService {
 
     return this.httpClient.post<IWompi>(this.urlApi, formData);
   };
-
-  // !VERIFICAR TIPOS
 
   public consultState = (id: string) => {
     const formData = new FormData();

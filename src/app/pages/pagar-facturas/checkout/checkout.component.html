@@ -33,13 +33,11 @@
                 <span class="font-semibold text-gray-500 font-number"
                   [innerHTML]="factura.valor_factura | formatNumber"></span>
               </td>
-
-
-
             </tr>
             }
           </tbody>
         </table>
+
       </div>
 
 
@@ -67,6 +65,7 @@
         </li>
         }
       </ul>
+
       }
       } @else {
       <app-loader theme="light"></app-loader>
@@ -134,7 +133,8 @@
             </h6>
             }
             } @else {
-            <small class="text text-xs text-semibold text-ghost-200">Por favor, selecciona las facturas a pagar para ver
+            <small class="text text-xs text-semibold text-ghost-200">Por favor, selecciona las facturas a pagar para
+              ver
               la
               inforamción de los impuestos relacionados</small>
             }
